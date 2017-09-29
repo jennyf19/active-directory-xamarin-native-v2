@@ -27,6 +27,7 @@ namespace UserDetailsClient
                 AuthenticationResult ar = 
                     await App.PCA.AcquireTokenSilentAsync(App.Scopes, App.PCA.Users.FirstOrDefault());
                 RefreshUserData(ar.AccessToken);
+                lblAccessToken.Text = ar.AccessToken;
                 btnSignInSignOut.Text = "Sign out";
             }
             catch
@@ -43,6 +44,7 @@ namespace UserDetailsClient
                 {
                     AuthenticationResult ar = await App.PCA.AcquireTokenAsync(App.Scopes, App.UiParent);
                     RefreshUserData(ar.AccessToken);
+                    lblAccessToken.Text = ar.AccessToken;
                     btnSignInSignOut.Text = "Sign out";
                 }
                 else
@@ -87,7 +89,7 @@ namespace UserDetailsClient
             }
             else
             {
-                DisplayAlert("Something went wrong with the API call", responseString, "Dismiss");
+                await DisplayAlert("Something went wrong with the API call", responseString, "Dismiss");
             }
         }
     }
